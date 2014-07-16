@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+ 
+namespace ConsoleApplication2
+{
+    class Point
+    {
+        public float x, y;
+        public Point(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    class Line
+    {
+        private Point pa, pb;
+        private float palpha, pc;
+        public Point a
+        {
+            set 
+            {
+                pa = value;
+                seta();
+                setc(); 
+            }
+            get { return pa; }
+        }
+        public Point b 
+        {
+            set 
+            {
+                pb = value;
+                seta();
+                setc();
+            }
+            get { return pb; }
+        }
+        public float alpha { get { return seta(); } }
+        public float c { get { return setc(); } }
+ 
+        public Line(Point a, Point b)   //конструктор
+        {
+            this.a = a;
+            this.b = b;
+        }
+        
+        float seta()
+        {
+            if (a != null && b != null) palpha = (b.x != a.x) ? (b.y - a.y) / (b.x - a.x) : float.NaN;
+            return palpha;
+        }
+        
+        float setc()
+        {
+            if (a != null && b != null) pc = (b.x != a.x) ? a.y - alpha * a.x : float.NaN;
+            return pc;
+        }
+        
+        public void show()
+        {
+            Console.WriteLine("a(x:y)={0}:{1}\nb(x:y)={2}:{3}", a.x, a.y, b.x, b.y);
+            if (!float.IsNaN(alpha)) Console.WriteLine("y={0}*x{1}", alpha,
+                (c > 0) ? "+" + c : (c < 0) ? "" + c : "");
+            else
+                Console.WriteLine("x={0}", a.x);
+        }
+    }
+ 
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Point a = new Point(1, 1);
+            Point b = new Point(3, 3);
+            Line T = new Line(a, b);
+            T.show();
+            T.a.x = 5;
+            T.show();
+            T.b.y = 5;
+            T.show();
+            Console.ReadKey();
+        }
+    }
+}
